@@ -1,13 +1,41 @@
 {% extends 'gestion/base.html' %}
+{% block title %}Lista clientes - Alke Wallet{% endblock %}
 {% block content %}
-<h1>Clientes</h1>
-<a href="{% url 'cliente_create' %}">Nuevo cliente</a>
-<ul>
-    {% for cliente in clientes %}
-        <li>{{cliente.nombre}} - {{cliente.email}}
-        <a href="{% url 'cliente_update' cliente.pk %}">Editar</a>
-        <a href="{% url 'cliente_delete' cliente.pk %}">Eliminar</a>
-        </li>
-    {% endfor %}
-    </ul>
+ <div class="row justify-content-center py-5">
+        <div class="col-lg-8 d-flex justify-content-between">
+            <div>
+                <h1>Clientes</h1>
+                <p>Gestion titulares Alke Wallet</p>
+            </div>
+            <div>
+                <a href="{% url 'cliente_create' %}" class="btn aw-btn-primary"><i class="bi bi-plus-circle"></i> Nuevo
+                    cliente</a>
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 aw-stagger">
+        {% for cliente in clientes %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card aw-card p-3 h-100">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <div class="rounded-circle bg-white bg-opacity-10 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <div >
+                            <h3 class="mb-0">{{cliente.nombre}}</h3>
+                            <p>{{cliente.email}}</p>
+                        </div>
+                    </div>
+                    {% if cliente.cuenta %}
+                        <p class="mb-1">Saldo disponible</p>
+                        <p class="aw-saldo-cliente aw-monto-positivo fs-5 mb-3" data-target="{{cliente.cuenta.saldo}}">$0</p>
+                    {% endif %}
+                    <div class="mt-auto d-flex gap-2">
+                        <a href="{% url 'cliente_update' cliente.pk %}" class="btn btn-sm aw-btn-outline"><i class="bi bi-pencil"></i> Editar</a>
+                        <a href="{% url 'cliente_delete' cliente.pk %}" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

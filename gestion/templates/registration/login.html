@@ -1,9 +1,24 @@
-{% extends 'gestion/base.html' %}
-{% block content %}
-    <h1>Iniciar Sesion</h1>
-    <form method='POST'>
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type='submit'>Ingresar</button>
-    </form>
-{%  endblock %}
+{% extends 'gestion/base.html' %} {% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-lg-8">
+        <h1>Iniciar Sesion</h1>
+        <div class="card aw-card aw-auth-card p-4">
+            <div class="text-center mb-3">
+                <i class="bi bi-wallet2 fs-1"></i>
+                <h2 class="mt-2 mb-0">Alke Wallet</h2>
+                <p>Ingresa a tu billetera</p>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{field.id_for_label}}" class="form label">{{field.label}}</label>
+                        {{field}}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn aw-btn-primary w-100 mt-3"><i class="bi bi-box-arrow-in-right"></i> Ingresar</button>
+            </form>
+        </div>
+    </div>
+    {% endblock %}
+</div>
