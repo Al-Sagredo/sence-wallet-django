@@ -1,0 +1,51 @@
+==============
+CREATE
+==============
+>>> from gestion.models import Cliente, Cuenta, Transaccion, Etiqueta
+>>> cliente1 = Cliente.objects.create(nombre='Abel Lopez', email='abelopez@gmail.com', telefono='123456789')
+>>> cliente2 = Cliente.objects.create(nombre='Ana Garcia', email='anagarcia@gmailcom')
+>>> cuenta1 = Cuenta.objects.create(cliente=cliente1, numero_cuenta='CP-001', saldo=1000000)
+>>> cuenta2 = Cuenta.objects.create(cliente=cliente2, numero_cuenta='CP-002', saldo=500000)
+>>> etiqueta1 = Etiqueta.objects.create(nombre='cuenta corriente')
+>>> etiqueta2 = Etiqueta.objects.create(nombre='cuenta ahorro')
+>>> cuenta1.etiquetas.add(etiqueta1)
+>>> cuenta2.etiquetas.add(etiqueta2)
+>>> Transaccion.objects.create(cuenta=cuenta1, tipo='DEPOSITO', monto=200000, descripcion='Deposito inicial')
+<Transaccion: DEPOSITO de $200000 en CP-001>
+>>> Transaccion.objects.create(cuenta=cuenta2, tipo='RETIRO', monto=100000, descripcion='Retiro cajero')
+<Transaccion: RETIRO de $100000 en CP-002>
+
+===========
+READ
+===========
+>>> todos_clientes = Cliente.objects.all()
+>>> print(list(todos_clientes))
+[<Cliente: Abel Lopez>, <Cliente: Ana Garcia>]
+>>> clientes_a = Cliente.objects.filter(nombre__istartswith='A')
+>>> print(list(clientes_a))
+[<Cliente: Abel Lopez>, <Cliente: Ana Garcia>]
+>>> transacciones_sin_retiro = Transaccion.objects.exclude(tipo='RETIRO')
+>>> cuentas_altas = Cuenta.objects.filter(saldo__gt=600000).order_by('-saldo')
+>>> print(list(cuentas_altas))
+[<Cuenta: Cuenta: CP-001 - Abel Lopez>]
+
+========
+UPDATE
+========
+>>> cliente = Cliente.objects.get(email='anagarcia@gmail.com')
+>>> cliente.telefono = '999123123'
+>>> cliente.save()
+
+========
+DELETE
+========
+>>> Transaccion.objects.filter(descripcion='Retiro cajero').delete()
+(1, {'gestion.Transaccion': 1})
+
+======
+RAW()
+======
+
+======
+CURSOR()
+======

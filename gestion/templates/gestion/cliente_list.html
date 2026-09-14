@@ -1,0 +1,13 @@
+{% extends 'gestion/base.html' %}
+{% block content %}
+<h1>Clientes</h1>
+<a href="{% url 'cliente_create' %}">Nuevo cliente</a>
+<ul>
+    {% for cliente in clientes %}
+        <li>{{cliente.nombre}} - {{cliente.email}}
+        <a href="{% url 'cliente_update' cliente.pk %}">Editar</a>
+        <a href="{% url 'cliente_delete' cliente.pk %}">Eliminar</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
