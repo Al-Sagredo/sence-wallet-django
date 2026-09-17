@@ -369,3 +369,110 @@ select option {
     color: #f8fafc;            /* Texto claro legible */
     padding: 8px 12px;
 }
+
+/* ==== LAYOUT DE REGISTRO / LOGIN ==== */
+.aw-auth-wrapper {
+    max-width: 540px;
+    margin: 3rem auto;
+}
+
+.aw-auth-card {
+    padding: 2rem 2.2rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ==== ESTRUCTURA DE FORMULARIO EN GRILLA ==== */
+.aw-form-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.aw-field-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.aw-col-half {
+    width: calc(50% - 0.55rem);
+}
+
+@media (max-width: 600px) {
+    .aw-col-half {
+        width: 100%;
+    }
+}
+
+/* ==== INPUTS Y LABELS ==== */
+.aw-label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--aw-text);
+    letter-spacing: 0.02em;
+}
+
+/* Estiliza los inputs generados por Django */
+.aw-field-group input[type="text"],
+.aw-field-group input[type="email"],
+.aw-field-group input[type="password"] {
+    width: 100%;
+    background-color: var(--aw-bg-alt);
+    border: 1px solid var(--aw-card-border);
+    color: var(--aw-text);
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.aw-field-group input:focus {
+    border-color: var(--aw-primary);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+/* ==== TEXTOS DE AYUDA Y ERRORES ==== */
+.aw-help-text, 
+.aw-help-text ul {
+    font-size: 0.72rem;
+    color: var(--aw-text-muted) !important;
+    line-height: 1.35;
+    margin-top: 0.2rem;
+    padding-left: 1rem;
+}
+
+.aw-field-error {
+    font-size: 0.75rem;
+    color: var(--aw-danger);
+    font-weight: 500;
+}
+
+/* ==== BOTONES Y FOOTER ==== */
+.aw-btn-full {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+}
+
+.aw-auth-footer {
+    margin-top: 1.25rem;
+    font-size: 0.84rem;
+    color: var(--aw-text-muted);
+}
+
+.aw-link {
+    color: var(--aw-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.aw-link:hover {
+    text-decoration: underline;
+}
+

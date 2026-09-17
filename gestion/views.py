@@ -31,7 +31,7 @@ class ClienteUpdateView(LoginRequiredMixin,UpdateView):
     model = Cliente
     form_class = ClienteForm
     template_name = 'gestion/cliente_form.html'
-    success_url = reverse_lazy('cliente_list')
+    success_url = reverse_lazy('home')
     
 class ClienteDeleteView(LoginRequiredMixin,DeleteView):
     model = Cliente
@@ -122,10 +122,6 @@ def mi_cuenta_view(request):
         'cuenta': cuenta,
         'transacciones': transacciones
     })
-
-
-
-
 
 # ==========================================
 # CRUD TRANSACCIONES 

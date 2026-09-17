@@ -1,31 +1,47 @@
-{% extends 'gestion/base.html' %} {% block content %}
-<div class="row justify-content-center py-5">
-    <div class="col-lg-8">
-        <h1>Iniciar Sesión</h1>
-        <div class="card aw-card aw-auth-card p-4">
-            <div class="text-center mb-3">
-                <i class="bi bi-wallet2 fs-1"></i>
-                <h2 class="mt-2 mb-0">Sence Wallet</h2>
-                
-            </div>
-            <form method="POST">
-                {% csrf_token %}
+{% extends 'gestion/base.html' %}
+
+{% block title %}Iniciar Sesión | Sence Wallet{% endblock %}
+
+{% block content %}
+<div class="aw-dashboard aw-auth-wrapper">
+    <div class="aw-card aw-auth-card">
+        <h2 class="aw-form-title text-center">Iniciar Sesión</h2>
+        
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="aw-form-errors">
+                    {% for error in form.non_field_errors %}
+                        <span class="aw-field-error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="aw-form-grid">
                 {% for field in form %}
-                    <div class="mb-3">
-                        <label for="{{field.id_for_label}}" class="form label">{{field.label}}</label>
-                        {{field}}
+                    <div class="aw-field-group">
+                        <label for="{{ field.id_for_label }}" class="aw-label">
+                            {{ field.label }}
+                        </label>
+                        
+                        {{ field }}
+
+                        {% for error in field.errors %}
+                            <span class="aw-field-error">{{ error }}</span>
+                        {% endfor %}
                     </div>
                 {% endfor %}
-                <button type="submit" class="btn aw-btn-primary w-100 mt-3"> Ingresar</button>
-            </form>
-            <div class="text-center mt-4 pt-3 border-top">
-                    <p class="text-muted small mb-0">
-                        ¿No tienes una cuenta? 
-                        <a href="{% url 'registro' %}" class="text-decoration-none">Regístrate aquí</a>
-                    </p>
-                </div>
-            
-        </div>
+            </div>
+
+            <button type="submit" class="aw-btn-primary aw-btn-full">
+                Ingresar
+            </button>
+        </form>
+
+        <p class="text-center aw-auth-footer">
+            ¿No tienes una cuenta? <a href="{% url 'registro' %}" class="aw-link">Regístrate aquí</a>
+        </p>
     </div>
-    {% endblock %}
 </div>
+{% endblock %}

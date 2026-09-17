@@ -3,14 +3,19 @@ from django.contrib.auth.models import User
 
 class Cliente(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cliente',null=True, blank=True) # 1 usuario 1 cliente
-    nombre = models.CharField(max_length=100)
-    #email = models.EmailField(unique=True)
     telefono = models.CharField(max_length=20, blank=True, null=True)
     fecha_registro = models.DateTimeField(auto_now_add=True)
 
     @property
+    def nombre(self):
+        if self.user:
+            nombre_completo = f"{self.user.first_name} {self.user.last_name}".strip()
+            return nombre_completo if nombre_completo else self.user.username
+        return "Sin usuario"
+
+    @property
     def email(self):
-        return self.user.email
+        return self.user.email if self.user else ""
     
     def __str__(self):
         return self.nombre

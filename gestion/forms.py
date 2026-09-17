@@ -4,27 +4,49 @@ from .models import Cliente, User, Transaccion, Cuenta
 import random
 
 class ClienteForm(forms.ModelForm):
+    first_name = forms.CharField(
+        label="Nombre",
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'aw-btn-outline', 'placeholder': 'Nombre'})
+    )
+    last_name = forms.CharField(
+        label="Apellido",
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'aw-btn-outline', 'placeholder': 'Apellido'})
+    )
+    email = forms.EmailField(
+        label="Correo electrónico",
+        required=True,
+        widget=forms.EmailInput(attrs={'class': 'aw-btn-outline', 'placeholder': 'correo@ejemplo.com'})
+    )
+
     class Meta:
         model = Cliente
-        fields = [
-            'nombre',
-            'telefono'
-        ]
+        fields = ['telefono']
         widgets = {
-            'nombre': forms.TelInput(
-                attrs={
-                    'class': 'form-control',
-                    'placeholder':'Nombre completo'
-                }
-            ),
-
-            'telefono': forms.TextInput(
-                attrs={
-                    'class': 'form-control',
-                    'placeholder':'+56 9 1234 5678'
-                }
-            )
+            'telefono': forms.TextInput(attrs={'class': 'aw-btn-outline', 'placeholder': '+56 9 ...'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Precargar los datos actuales del usuario asociado al cliente
+        if self.instance and self.instance.user:
+            self.fields['first_name'].initial = self.instance.user.first_name
+            self.fields['last_name'].initial = self.instance.user.last_name
+            self.fields['email'].initial = self.instance.user.email
+
+    def save(self, commit=True):
+        cliente = super().save(commit=commit)
+        # Guardar las modificaciones en el modelo User
+        if cliente.user:
+            cliente.user.first_name = self.cleaned_data['first_name']
+            cliente.user.last_name = self.cleaned_data['last_name']
+            cliente.user.email = self.cleaned_data['email']
+            if commit:
+                cliente.user.save()
+        return cliente
         
 class LoginForm(AuthenticationForm):
     username = forms.CharField(

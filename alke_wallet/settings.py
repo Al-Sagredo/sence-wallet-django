@@ -140,5 +140,5 @@ MAILERS = {
     },
 }
 
-LOGIN_REDIRECT_URL = 'cliente_list'
+LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
