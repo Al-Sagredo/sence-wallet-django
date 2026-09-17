@@ -1,11 +1,11 @@
 {% extends 'gestion/base.html' %}
-{% block title %}Formulario cliente - Alke Wallet{% endblock %}
+{% block title %}Formulario cliente - Sence Wallet{% endblock %}
 {% block content %}
 <div class="row justify-content-center py-5">
         <div class="col-lg-8">
             <h1>Formulario cliente</h1>
             <div class="card aw-card p-4">
-                <h2 class="mb-3"><i class="bi bi-person-lines-fill"></i> Datos del cliente</h2>
+                <h2 class="mb-3"> Datos del cliente</h2>
                 <form method="POST">
                     {% csrf_token %} 
                     {% for field in form %}
@@ -14,7 +14,7 @@
                             {{field}}
                         </div>
                     {% endfor %}
-                    <button type="submit" class="btn aw-btn-primary w-100 mt-2"><i class="bi bi-check2-circle"></i> Guardar</button>
+                    <button type="submit" class="btn aw-btn-primary w-100 mt-2"> Guardar</button>
                 </form>
             </div>
         </div>

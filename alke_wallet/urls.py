@@ -27,4 +27,4 @@ urlpatterns = [
         authentication_form=LoginForm,
     ), name='login'),
     path('accounts/', include('django.contrib.auth.urls')) #login/logout
- ]
+ ] 

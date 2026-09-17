@@ -1,12 +1,12 @@
 {% extends 'gestion/base.html' %} {% block content %}
 <div class="row justify-content-center py-5">
     <div class="col-lg-8">
-        <h1>Iniciar Sesion</h1>
+        <h1>Iniciar Sesión</h1>
         <div class="card aw-card aw-auth-card p-4">
             <div class="text-center mb-3">
                 <i class="bi bi-wallet2 fs-1"></i>
-                <h2 class="mt-2 mb-0">Alke Wallet</h2>
-                <p>Ingresa a tu billetera</p>
+                <h2 class="mt-2 mb-0">Sence Wallet</h2>
+                
             </div>
             <form method="POST">
                 {% csrf_token %}
@@ -16,8 +16,15 @@
                         {{field}}
                     </div>
                 {% endfor %}
-                <button type="submit" class="btn aw-btn-primary w-100 mt-3"><i class="bi bi-box-arrow-in-right"></i> Ingresar</button>
+                <button type="submit" class="btn aw-btn-primary w-100 mt-3"> Ingresar</button>
             </form>
+            <div class="text-center mt-4 pt-3 border-top">
+                    <p class="text-muted small mb-0">
+                        ¿No tienes una cuenta? 
+                        <a href="{% url 'registro' %}" class="text-decoration-none">Regístrate aquí</a>
+                    </p>
+                </div>
+            
         </div>
     </div>
     {% endblock %}

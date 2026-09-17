@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cliente, Etiqueta, Cuenta, Transaccion
+from .models import Cliente, Cuenta, Transaccion
 
 @admin.register(Cliente)
 class ClienteAdmin(admin.ModelAdmin):
@@ -7,6 +7,7 @@ class ClienteAdmin(admin.ModelAdmin):
         'nombre',
         'email',
         'telefono',
+        'user',
         'fecha_registro'
     )
     
@@ -16,12 +17,6 @@ class ClienteAdmin(admin.ModelAdmin):
         'telefono'
     )
     
-@admin.register(Etiqueta)
-class EtiquetaAdmin(admin.ModelAdmin):
-    list_display = (
-        'nombre',
-    )
-
 @admin.register(Cuenta)
 class CuentaAdmin(admin.ModelAdmin):
     list_display = (

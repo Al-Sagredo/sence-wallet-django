@@ -1,11 +1,11 @@
 {% extends 'gestion/base.html' %}
-{% block title %}Lista clientes - Alke Wallet{% endblock %}
+{% block title %}Lista clientes - Sence Wallet{% endblock %}
 {% block content %}
  <div class="row justify-content-center py-5">
         <div class="col-lg-8 d-flex justify-content-between">
             <div>
                 <h1>Clientes</h1>
-                <p>Gestion titulares Alke Wallet</p>
+                <p>Gestion titulares Sence Wallet</p>
             </div>
             <div>
                 <a href="{% url 'cliente_create' %}" class="btn aw-btn-primary"><i class="bi bi-plus-circle"></i> Nuevo
@@ -21,8 +21,8 @@
                         <div class="rounded-circle bg-white bg-opacity-10 d-flex align-items-center justify-content-center">
                             <i class="bi bi-person-fill"></i>
                         </div>
-                        <div >
-                            <h3 class="mb-0">{{cliente.nombre}}</h3>
+                        <div class='px-2'>
+                            <h3 class="mb-1">{{cliente.nombre}}</h3>
                             <p>{{cliente.email}}</p>
                         </div>
                     </div>

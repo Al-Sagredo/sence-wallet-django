@@ -1,0 +1,21 @@
+{% extends 'gestion/base.html' %}
+
+{% block title %}Nueva Transacción | Sence Wallet{% endblock %}
+
+{% block content %}
+<div class="aw-dashboard aw-form-container">
+    <div class="aw-card">
+        <h2 class="aw-form-title">Nueva Operación</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="aw-form-body">
+                {{ form.as_p }}
+                <div class="aw-form-actions">
+                    <button type="submit" class="aw-btn-primary aw-btn-block">Confirmar</button>
+                    <a href="{% url 'home' %}" class="aw-btn-outline aw-btn-block">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

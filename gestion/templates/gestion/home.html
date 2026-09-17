@@ -1,0 +1,106 @@
+{% extends 'gestion/base.html' %}
+
+{% block title %}Dashboard | Sence Wallet{% endblock %}
+
+{% block content %}
+<div class="aw-dashboard">
+
+    <!-- 1. IDENTIDAD Y CUENTA -->
+    <header class="aw-card aw-profile-header">
+        <div>
+            <h1>Hola, {{ request.user.first_name|default:request.user.username }}</h1>
+            <p class="text-muted aw-profile-date">
+                Cliente desde {{ cliente.fecha_registro|date:"d M, Y" }}
+            </p>
+        </div>
+        <div class="aw-profile-aside">
+            <span class="aw-badge aw-badge-primary">Cuenta N° {{ cuenta.numero_cuenta }}</span>
+            
+        </div>
+    </header>
+
+    <!-- 2. MÉTRICAS FINANCIERAS -->
+    <section class="aw-grid-metrics">
+        <div class="aw-card">
+            <span class="text-muted aw-metric-title">Saldo Disponible</span>
+            <div class="aw-balance-val">${{ cuenta.saldo }}</div>
+            <span class="aw-badge">Activo</span>
+        </div>
+
+        <div class="aw-card">
+            <span class="text-muted aw-metric-title">Ingresos</span>
+            <div class="aw-metric-val text-income">+${{ total_ingresos }}</div>
+        </div>
+
+        <div class="aw-card">
+            <span class="text-muted aw-metric-title">Egresos</span>
+            <div class="aw-metric-val text-expense">-${{ total_egresos }}</div>
+        </div>
+    </section>
+
+    <!-- 3. ACCIONES RÁPIDAS -->
+    <section class="aw-actions-bar">
+        <a href="{% url 'transaccion_create' %}" class="aw-btn-primary">
+            <span>+</span> Nueva Transacción
+        </a>
+    
+        {% if cliente and cliente.pk %}
+            <a href="{% url 'cliente_update' cliente.pk %}" class="aw-btn-outline">
+                Editar Perfil
+            </a>
+        {% endif %}
+        <form method="post" action="{% url 'logout' %}" class="aw-logout-form">
+            {% csrf_token %}
+            <button type="submit" class="aw-btn-danger">
+                Cerrar Sesión
+            </button>
+        </form>
+    </section>
+
+    <!-- 4. HISTORIAL RECIENTE -->
+    <section class="aw-card">
+        <div class="aw-history-header">
+            <h2 class="aw-history-title">Movimientos Recientes</h2>
+            <a href="{% url 'transaccion_list' %}" class="aw-btn-outline aw-btn-history">
+                Ver Historial →
+            </a>
+        </div>
+
+        <div class="aw-table-container">
+            <table class="aw-table">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Operación</th>
+                        <th>Detalle</th>
+                        <th class="text-right">Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in transacciones %}
+                        <tr>
+                            <td class="text-muted">{{ t.fecha|date:"d M, H:i" }}</td>
+                            <td>
+                                <span class="aw-badge {% if t.tipo == 'DEPOSITO' %}aw-badge-primary{% endif %}">
+                                    {{ t.get_tipo_display }}
+                                </span>
+                            </td>
+                            <td>{{ t.descripcion|default:"Transacción digital" }}</td>
+                            <td class="text-right {% if t.tipo == 'DEPOSITO' %}text-income{% else %}text-expense{% endif %}">
+                                {% if t.tipo == 'DEPOSITO' %}+{% else %}-{% endif %}${{ t.monto }}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-muted aw-table-empty">
+                                No hay registros de movimientos en esta cuenta.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
