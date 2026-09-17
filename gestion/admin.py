@@ -12,8 +12,10 @@ class ClienteAdmin(admin.ModelAdmin):
     )
     
     search_fields = (
-        'nombre',
-        'email',
+        'user__first_name',
+        'user__last_name',
+        'user__username',
+        'user__email',
         'telefono'
     )
     
