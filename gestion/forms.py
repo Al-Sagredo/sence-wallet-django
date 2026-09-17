@@ -6,22 +6,14 @@ import random
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
-        fields = [
-            'nombre',
+        fields = [  
             'telefono'
         ]
         widgets = {
-            'nombre': forms.TelInput(
-                attrs={
-                    'class': 'form-control',
-                    'placeholder':'Nombre completo'
-                }
-            ),
-
             'telefono': forms.TextInput(
                 attrs={
-                    'class': 'form-control',
-                    'placeholder':'+56 9 1234 5678'
+                    'class': 'aw-btn-outline',
+                    'placeholder':'Teléfono'
                 }
             )
         }

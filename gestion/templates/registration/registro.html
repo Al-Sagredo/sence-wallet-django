@@ -1,34 +1,43 @@
 {% extends 'gestion/base.html' %}
 
-{% block title %}Crear Cuenta{% endblock %}
+{% block title %}Crear Cuenta | Sence Wallet{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card shadow-sm border-0">
-            <div class="card-body p-4">
-                <div class="text-center mb-4">
-                    <h2 class="fw-bold">Crear Cuenta</h2>
-                    
-                </div>
+<div class="aw-dashboard aw-auth-wrapper">
+    <div class="aw-card aw-auth-card">
+        <h2 class="aw-form-title text-center">Crear Cuenta</h2>
+        
+        <form method="post" novalidate>
+            {% csrf_token %}
 
-                <form method="POST">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        {{ form.as_p }}
+            <div class="aw-form-grid">
+                {% for field in form %}
+                    <div class="aw-field-group {% if field.name == 'first_name' or field.name == 'last_name' %}aw-col-half{% endif %}">
+                        <label for="{{ field.id_for_label }}" class="aw-label">
+                            {{ field.label }}
+                        </label>
+                        
+                        {{ field }}
+
+                        {% if field.help_text %}
+                            <small class="aw-help-text">{{ field.help_text|safe }}</small>
+                        {% endif %}
+
+                        {% for error in field.errors %}
+                            <span class="aw-field-error">{{ error }}</span>
+                        {% endfor %}
                     </div>
-                    
-                    <button type="submit" class="btn btn-success w-100 py-2">Registrate</button>
-                </form>
-
-                <div class="text-center mt-4 pt-3 border-top">
-                    <p class="text-muted small mb-0">
-                        ¿Ya tienes cuenta? 
-                        <a href="{% url 'login' %}" class="text-decoration-none">Inicia sesión</a>
-                    </p>
-                </div>
+                {% endfor %}
             </div>
-        </div>
+
+            <button type="submit" class="aw-btn-primary aw-btn-full">
+                Registrarse
+            </button>
+        </form>
+
+        <p class="text-center aw-auth-footer">
+            ¿Ya tienes cuenta? <a href="{% url 'login' %}" class="aw-link">Inicia sesión</a>
+        </p>
     </div>
 </div>
 {% endblock %}

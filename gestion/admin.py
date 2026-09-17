@@ -12,9 +12,7 @@ class ClienteAdmin(admin.ModelAdmin):
     )
     
     search_fields = (
-        'nombre',
-        'email',
-        'telefono'
+        'telefono',
     )
     
 @admin.register(Cuenta)
