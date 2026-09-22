@@ -476,3 +476,141 @@ select option {
     text-decoration: underline;
 }
 
+/* ==== CABECERA Y SECCIONES ==== */
+.aw-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.aw-page-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--aw-text);
+    margin: 0;
+}
+
+.aw-section-subtitle {
+    color: var(--aw-text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+}
+
+/* ==== GRILLA Y TARJETA DE CLIENTE ==== */
+.aw-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+
+.aw-client-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem;
+}
+
+.aw-client-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+}
+
+.aw-avatar-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: var(--aw-primary);
+    flex-shrink: 0;
+}
+
+.aw-client-info {
+    overflow: hidden;
+}
+
+.aw-client-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 0.15rem 0;
+    color: var(--aw-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.aw-client-email {
+    font-size: 0.8rem;
+    color: var(--aw-text-muted);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ==== SALDO Y ACCIONES ==== */
+.aw-client-balance-box {
+    background: var(--aw-bg-alt);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.aw-label-muted {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--aw-text-muted);
+}
+
+.aw-amount-positive {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--aw-primary);
+    margin: 0.2rem 0 0 0;
+}
+
+.aw-card-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.aw-btn-sm {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+}
+
+.aw-btn-danger {
+    background-color: transparent;
+    border: 1px solid var(--aw-danger);
+    color: var(--aw-danger);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.aw-btn-danger:hover {
+    background-color: var(--aw-danger);
+    color: #fff;
+}
+
+.aw-empty-card {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+}

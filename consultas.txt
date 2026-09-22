@@ -45,7 +45,19 @@ DELETE
 ======
 RAW()
 ======
+from gestion.models import Cliente
+# Consulta que trae clientes que tienen teléfono registrado
+consulta = "SELECT * FROM gestion_cliente WHERE telefono IS NOT NULL"
+clientes_con_tel = Cliente.objects.raw(consulta)
+for c in clientes_con_tel:
+    print(c.id, c.nombre, c.telefono)
 
 ======
 CURSOR()
 ======
+from django.db import connection
+# Total de transacciones y monto acumulado
+with connection.cursor() as cursor:
+    cursor.execute("SELECT COUNT(*), COALESCE(SUM(monto), 0) FROM gestion_transaccion")
+    conteo, acumulado = cursor.fetchone()
+    print(f"Total movimientos: {conteo} | Acumulado: ${acumulado}")
