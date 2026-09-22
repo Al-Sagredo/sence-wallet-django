@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap');
 
+/* ==========================================================================
+   1. VARIABLES & RESET
+   ========================================================================== */
 :root {
     --aw-bg: #090e15;
     --aw-bg-alt: #121a24;
@@ -7,8 +10,9 @@
     --aw-primary-dark: #059669;
     --aw-accent: #f59e0b;
     --aw-danger: #f43f5e;
+    --aw-info: #38bdf8;
     --aw-text: #f8fafc;
-    --aw-text-muted: #cbd5e1; /* Alto contraste para textos pequeños y secundarios */
+    --aw-text-muted: #94a3b8;
     --aw-card-border: rgba(255, 255, 255, 0.08);
     --aw-radius: 14px;
 }
@@ -26,462 +30,43 @@ body {
     min-height: 100vh;
 }
 
-/* ==== NAVBAR ==== */
+/* ==========================================================================
+   2. NAVBAR & LAYOUT
+   ========================================================================== */
 .aw-navbar {
     background: rgba(9, 14, 21, 0.85);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--aw-card-border);
-    padding: 1rem 2rem;
+    padding: 0.85rem 1.5rem;
 }
 
 .aw-brand {
     font-family: 'Outfit', sans-serif;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 1.4rem;
     color: var(--aw-text);
     text-decoration: none;
 }
 
-/* ==== CARDS ==== */
-.aw-card, .card {
-    background: rgba(18, 26, 36, 0.7);
-    border: 1px solid var(--aw-card-border);
-    border-radius: var(--aw-radius);
-    color: var(--aw-text);
-    backdrop-filter: blur(8px);
-    padding: 1.5rem;
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-}
-
-.aw-card:hover, .card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.45);
-}
-
-/* ==== BOTONES ==== */
-.aw-btn-primary, .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, var(--aw-primary), var(--aw-primary-dark));
-    border: none;
-    color: #ffffff;
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-size: 0.92rem;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    transition: transform .15s ease, box-shadow .15s ease;
-}
-
-.aw-btn-primary:hover, .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
-}
-
-.aw-btn-outline {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    border: 1px solid var(--aw-card-border);
-    color: var(--aw-text);
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.02);
-    padding: 9px 18px;
-    font-size: 0.92rem;
-    font-weight: 500;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background .15s ease, border-color .15s ease;
-}
-
-.aw-btn-outline:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.aw-btn-danger {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(244, 63, 94, 0.12);
-    border: 1px solid rgba(244, 63, 94, 0.3);
-    color: var(--aw-danger);
-    border-radius: 10px;
-    padding: 9px 18px;
-    font-size: 0.92rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background .15s ease;
-}
-
-.aw-btn-danger:hover {
-    background: rgba(244, 63, 94, 0.25);
-}
-
-/* ==== DASHBOARD LAYOUT ==== */
 .aw-dashboard {
     max-width: 1140px;
     margin: 2rem auto;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
     display: flex;
     flex-direction: column;
     gap: 1.75rem;
 }
 
-.aw-profile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.aw-profile-header h1 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 700;
-}
-
-.aw-profile-date {
-    font-size: 0.88rem;
-    margin-top: 2px;
-}
-
-.aw-profile-aside {
-    text-align: right;
-}
-
-.aw-tags {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-top: 0.5rem;
-}
-
-.aw-tag-empty {
-    font-size: 0.78rem;
-}
-
-.aw-badge {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid var(--aw-card-border);
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: var(--aw-text-muted);
-}
-
-.aw-badge-primary {
-    background: rgba(16, 185, 129, 0.12);
-    border-color: rgba(16, 185, 129, 0.3);
-    color: var(--aw-primary);
-}
-
-/* ==== SECCIÓN FINANCIERA ==== */
-.aw-grid-metrics {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 1.25rem;
-}
-
-@media (max-width: 860px) {
-    .aw-grid-metrics {
-        grid-template-columns: 1fr;
-    }
-}
-
-.aw-metric-title {
-    font-size: 0.85rem;
-    font-weight: 500;
-}
-
-.aw-metric-desc {
-    font-size: 0.78rem;
-}
-
-.aw-balance-val {
-    font-family: 'Outfit', sans-serif;
-    font-size: 2.6rem;
-    font-weight: 800;
-    color: var(--aw-text);
-    letter-spacing: -1px;
-    margin: 0.5rem 0;
-}
-
-.aw-metric-val {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin: 0.4rem 0;
-}
-
-/* ==== ACCIONES RÁPIDAS ==== */
-.aw-actions-bar {
-    display: flex;
-    gap: 0.85rem;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.aw-logout-form {
-    display: inline;
-}
-
-/* ==== HISTORIAL Y TABLA ==== */
-.aw-history-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-}
-
-.aw-history-title {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.25rem;
-}
-
-.aw-btn-history {
-    padding: 4px 12px;
-    font-size: 0.8rem;
-}
-
-.aw-table-container {
-    overflow-x: auto;
-}
-
-.aw-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-    font-size: 0.92rem;
-}
-
-.aw-table th {
-    text-align: left;
-    padding: 0.9rem 1rem;
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #e2e8f0;
-    font-weight: 600;
-    border-bottom: 1px solid var(--aw-card-border);
-}
-
-.aw-table td {
-    padding: 1.1rem 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.aw-table tr:last-child td {
-    border-bottom: none;
-}
-
-.aw-table-empty {
-    text-align: center;
-    padding: 2.5rem 0;
-}
-
-/* ==== UTILIDADES ==== */
-.text-muted {
-    color: var(--aw-text-muted) !important;
-    --bs-text-opacity: 1 !important;
-}
-
-.text-income {
-    color: var(--aw-primary);
-    font-weight: 600;
-}
-
-.text-expense {
-    color: var(--aw-danger);
-    font-weight: 600;
-}
-
-.text-right {
-    text-align: right;
-}
-
-/* ==== CONTENEDOR Y ESTRUCTURA DE FORMULARIOS ==== */
-.aw-form-container {
-    max-width: 500px;
-}
-
-.aw-form-title {
-    font-family: 'Outfit', sans-serif;
-    margin-bottom: 1.5rem;
-}
-
-.aw-form-body {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.aw-form-body p {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-}
-
-.aw-form-body label {
-    font-size: 0.88rem;
-    font-weight: 500;
-    color: var(--aw-text);
-}
-
-.aw-form-actions {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.aw-btn-block {
-    flex: 1;
-    justify-content: center;
-    text-align: center;
-}
-
-/* ==== INPUTS Y DROPDOWN (SELECT / OPTION) ==== */
-select.aw-btn-outline,
-input.aw-btn-outline,
-textarea.aw-btn-outline {
-    background-color: var(--aw-bg-alt);
-    border: 1px solid var(--aw-card-border);
-    color: var(--aw-text);
-    padding: 10px 14px;
-    border-radius: 10px;
-    outline: none;
-    font-size: 0.92rem;
-}
-
-select.aw-btn-outline:focus,
-input.aw-btn-outline:focus {
-    border-color: var(--aw-primary);
-}
-
-/* Corrección de opciones desplegables */
-select option {
-    background-color: #161f2b; /* Fondo oscuro consistente con la tarjeta */
-    color: #f8fafc;            /* Texto claro legible */
-    padding: 8px 12px;
-}
-
-/* ==== LAYOUT DE REGISTRO / LOGIN ==== */
 .aw-auth-wrapper {
-    max-width: 540px;
-    margin: 3rem auto;
+    max-width: 520px;
+    margin: 2.5rem auto;
 }
 
-.aw-auth-card {
-    padding: 2rem 2.2rem;
-}
-
-.text-center {
-    text-align: center;
-}
-
-/* ==== ESTRUCTURA DE FORMULARIO EN GRILLA ==== */
-.aw-form-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.1rem;
-    margin-bottom: 1.5rem;
-}
-
-.aw-field-group {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-}
-
-.aw-col-half {
-    width: calc(50% - 0.55rem);
-}
-
-@media (max-width: 600px) {
-    .aw-col-half {
-        width: 100%;
-    }
-}
-
-/* ==== INPUTS Y LABELS ==== */
-.aw-label {
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--aw-text);
-    letter-spacing: 0.02em;
-}
-
-/* Estiliza los inputs generados por Django */
-.aw-field-group input[type="text"],
-.aw-field-group input[type="email"],
-.aw-field-group input[type="password"] {
-    width: 100%;
-    background-color: var(--aw-bg-alt);
-    border: 1px solid var(--aw-card-border);
-    color: var(--aw-text);
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 0.92rem;
-    outline: none;
-    transition: border-color .15s ease, box-shadow .15s ease;
-}
-
-.aw-field-group input:focus {
-    border-color: var(--aw-primary);
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
-}
-
-/* ==== TEXTOS DE AYUDA Y ERRORES ==== */
-.aw-help-text, 
-.aw-help-text ul {
-    font-size: 0.72rem;
-    color: var(--aw-text-muted) !important;
-    line-height: 1.35;
-    margin-top: 0.2rem;
-    padding-left: 1rem;
-}
-
-.aw-field-error {
-    font-size: 0.75rem;
-    color: var(--aw-danger);
-    font-weight: 500;
-}
-
-/* ==== BOTONES Y FOOTER ==== */
-.aw-btn-full {
-    width: 100%;
-    justify-content: center;
-    padding: 12px;
-}
-
-.aw-auth-footer {
-    margin-top: 1.25rem;
-    font-size: 0.84rem;
-    color: var(--aw-text-muted);
-}
-
-.aw-link {
-    color: var(--aw-primary);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.aw-link:hover {
-    text-decoration: underline;
-}
-
-/* ==== CABECERA Y SECCIONES ==== */
+/* Encabezados de sección */
 .aw-section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
     flex-wrap: wrap;
     gap: 1rem;
 }
@@ -500,13 +85,36 @@ select option {
     margin-bottom: 0;
 }
 
-/* ==== GRILLA Y TARJETA DE CLIENTE ==== */
+/* ==========================================================================
+   3. CARDS & GRID
+   ========================================================================== */
+.aw-card, .card {
+    background: rgba(18, 26, 36, 0.7);
+    border: 1px solid var(--aw-card-border);
+    border-radius: var(--aw-radius);
+    color: var(--aw-text);
+    backdrop-filter: blur(8px);
+    padding: 1.5rem;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.aw-card:hover, .card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+.aw-auth-card {
+    padding: 2.2rem;
+}
+
 .aw-cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.25rem;
 }
 
+/* Tarjeta de Clientes */
 .aw-client-card {
     display: flex;
     flex-direction: column;
@@ -542,7 +150,6 @@ select option {
     font-size: 1.05rem;
     font-weight: 600;
     margin: 0 0 0.15rem 0;
-    color: var(--aw-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -557,7 +164,6 @@ select option {
     text-overflow: ellipsis;
 }
 
-/* ==== SALDO Y ACCIONES ==== */
 .aw-client-balance-box {
     background: var(--aw-bg-alt);
     border-radius: 10px;
@@ -565,18 +171,101 @@ select option {
     margin-bottom: 1.25rem;
 }
 
-.aw-label-muted {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--aw-text-muted);
+/* Dashboard Métricas */
+.aw-grid-metrics {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1.25rem;
 }
 
-.aw-amount-positive {
-    font-size: 1.2rem;
+@media (max-width: 860px) {
+    .aw-grid-metrics {
+        grid-template-columns: 1fr;
+    }
+}
+
+.aw-balance-val {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin: 0.5rem 0;
+}
+
+.aw-metric-val {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
     font-weight: 700;
-    color: var(--aw-primary);
-    margin: 0.2rem 0 0 0;
+    margin: 0.4rem 0;
+}
+
+/* ==========================================================================
+   4. BOTONES
+   ========================================================================== */
+.aw-btn-primary, .aw-btn-outline, .aw-btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 10px;
+    padding: 9px 18px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .15s ease;
+}
+
+.aw-btn-primary {
+    background: linear-gradient(135deg, var(--aw-primary), var(--aw-primary-dark));
+    border: none;
+    color: #ffffff;
+}
+
+.aw-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
+    color: #fff;
+}
+
+.aw-btn-outline {
+    border: 1px solid var(--aw-card-border);
+    color: var(--aw-text);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.aw-btn-outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--aw-text);
+}
+
+.aw-btn-danger {
+    background: rgba(244, 63, 94, 0.12);
+    border: 1px solid rgba(244, 63, 94, 0.3);
+    color: var(--aw-danger);
+}
+
+.aw-btn-danger:hover {
+    background: var(--aw-danger);
+    color: #ffffff;
+}
+
+.aw-btn-sm {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    flex: 1;
+}
+
+.aw-btn-full, .aw-btn-block {
+    width: 100%;
+}
+
+.aw-actions-bar {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .aw-card-actions {
@@ -584,33 +273,219 @@ select option {
     gap: 0.5rem;
 }
 
-.aw-btn-sm {
-    padding: 6px 12px;
-    font-size: 0.8rem;
-    flex: 1;
-    text-align: center;
-    justify-content: center;
+/* ==========================================================================
+   5. TABLAS & BADGES
+   ========================================================================== */
+.aw-table-card {
+    padding: 0;
+    overflow: hidden;
 }
 
-.aw-btn-danger {
-    background-color: transparent;
-    border: 1px solid var(--aw-danger);
-    color: var(--aw-danger);
-    border-radius: 8px;
-    text-decoration: none;
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.aw-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.aw-table th {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1rem 1.25rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    transition: all 0.15s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--aw-text-muted);
+    border-bottom: 1px solid var(--aw-card-border);
+}
+
+.aw-table td {
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+.aw-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.aw-cell-date {
+    color: var(--aw-text-muted);
+    font-size: 0.82rem;
+}
+
+.aw-cell-account {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--aw-text-muted);
+}
+
+/* Badges */
+.aw-badge {
     display: inline-flex;
     align-items: center;
+    gap: 0.35rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--aw-card-border);
+    color: var(--aw-text-muted);
 }
 
-.aw-btn-danger:hover {
-    background-color: var(--aw-danger);
-    color: #fff;
+.aw-badge-primary, .aw-badge-success {
+    background: rgba(16, 185, 129, 0.12);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: var(--aw-primary);
 }
 
-.aw-empty-card {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 3rem;
+.aw-badge-danger {
+    background: rgba(244, 63, 94, 0.12);
+    border-color: rgba(244, 63, 94, 0.3);
+    color: var(--aw-danger);
 }
+
+.aw-badge-info {
+    background: rgba(56, 189, 248, 0.12);
+    border-color: rgba(56, 189, 248, 0.3);
+    color: var(--aw-info);
+}
+
+.aw-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+    justify-content: flex-end;
+}
+
+/* ==========================================================================
+   6. FORMULARIOS
+   ========================================================================== */
+.aw-form-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.aw-form-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.aw-field-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.aw-col-half {
+    width: calc(50% - 0.55rem);
+}
+
+@media (max-width: 600px) {
+    .aw-col-half {
+        width: 100%;
+    }
+}
+
+.aw-label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--aw-text);
+}
+
+/* Control transversal para inputs y selects */
+.aw-field-group input,
+.aw-field-group select,
+.aw-field-group textarea,
+select.aw-btn-outline,
+input.aw-btn-outline {
+    width: 100%;
+    background-color: var(--aw-bg-alt);
+    border: 1px solid var(--aw-card-border);
+    color: var(--aw-text);
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.aw-field-group input:focus,
+.aw-field-group select:focus,
+input.aw-btn-outline:focus,
+select.aw-btn-outline:focus {
+    border-color: var(--aw-primary);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+select option {
+    background-color: #161f2b;
+    color: #f8fafc;
+    padding: 8px 12px;
+}
+
+.aw-form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+.aw-form-errors {
+    background: rgba(244, 63, 94, 0.1);
+    border: 1px solid rgba(244, 63, 94, 0.25);
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.aw-field-error {
+    font-size: 0.78rem;
+    color: var(--aw-danger);
+    font-weight: 500;
+}
+
+.aw-help-text, .aw-help-text ul {
+    font-size: 0.72rem;
+    color: var(--aw-text-muted);
+    line-height: 1.35;
+    margin-top: 0.2rem;
+    padding-left: 1rem;
+}
+
+.aw-auth-footer {
+    margin-top: 1.25rem;
+    font-size: 0.85rem;
+    color: var(--aw-text-muted);
+}
+
+.aw-link {
+    color: var(--aw-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.aw-link:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   7. UTILIDADES
+   ========================================================================== */
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.text-income, .aw-amount-positive { color: var(--aw-primary); font-weight: 700; }
+.text-expense, .aw-amount-negative { color: var(--aw-danger); font-weight: 700; }
+.aw-label-muted { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--aw-text-muted); }
+.aw-empty-card { grid-column: 1 / -1; text-align: center; padding: 3rem; }
