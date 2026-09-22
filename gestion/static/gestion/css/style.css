@@ -12,7 +12,7 @@
     --aw-danger: #f43f5e;
     --aw-info: #38bdf8;
     --aw-text: #f8fafc;
-    --aw-text-muted: #94a3b8;
+    --aw-text-muted: #cbd5e1;
     --aw-card-border: rgba(255, 255, 255, 0.08);
     --aw-radius: 14px;
 }
@@ -489,3 +489,20 @@ select option {
 .text-expense, .aw-amount-negative { color: var(--aw-danger); font-weight: 700; }
 .aw-label-muted { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--aw-text-muted); }
 .aw-empty-card { grid-column: 1 / -1; text-align: center; padding: 3rem; }
+
+
+/* Corrección de contraste para clases text-muted y etiquetas secundarias */
+.text-muted,
+p.text-muted,
+span.text-muted,
+small.text-muted {
+    color: var(--aw-text-muted) !important;
+    opacity: 0.9 !important;
+    --bs-text-opacity: 1 !important;
+}
+
+.aw-profile-date,
+.aw-metric-title {
+    color: #cbd5e1 !important;
+    font-weight: 500;
+}
