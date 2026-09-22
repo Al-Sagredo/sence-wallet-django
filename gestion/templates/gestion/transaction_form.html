@@ -3,17 +3,45 @@
 {% block title %}Nueva Transacción | Sence Wallet{% endblock %}
 
 {% block content %}
-<div class="aw-dashboard aw-form-container">
-    <div class="aw-card">
-        <h2 class="aw-form-title">Nueva Operación</h2>
-        <form method="post">
+<div class="aw-dashboard aw-auth-wrapper">
+    <div class="aw-card aw-auth-card">
+        <h2 class="aw-form-title text-center">Nueva Transacción</h2>
+        
+        <form method="post" novalidate>
             {% csrf_token %}
-            <div class="aw-form-body">
-                {{ form.as_p }}
-                <div class="aw-form-actions">
-                    <button type="submit" class="aw-btn-primary aw-btn-block">Confirmar</button>
-                    <a href="{% url 'home' %}" class="aw-btn-outline aw-btn-block">Cancelar</a>
+
+            {% if form.non_field_errors %}
+                <div class="aw-form-errors">
+                    {% for error in form.non_field_errors %}
+                        <span class="aw-field-error">{{ error }}</span>
+                    {% endfor %}
                 </div>
+            {% endif %}
+
+            <div class="aw-form-grid">
+                {% for field in form %}
+                    <div class="aw-field-group">
+                        <label for="{{ field.id_for_label }}" class="aw-label">
+                            {{ field.label }}
+                        </label>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small class="aw-help-text">{{ field.help_text|safe }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <span class="aw-field-error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="aw-form-actions">
+                <button type="submit" class="aw-btn-primary aw-btn-block">
+                    Confirmar Transacción
+                </button>
+                <a href="{% url 'home' %}" class="aw-btn-outline aw-btn-block">
+                    Cancelar
+                </a>
             </div>
         </form>
     </div>

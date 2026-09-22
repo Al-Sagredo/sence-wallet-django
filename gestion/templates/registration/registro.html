@@ -10,19 +10,23 @@
         <form method="post" novalidate>
             {% csrf_token %}
 
+            {% if form.non_field_errors %}
+                <div class="aw-form-errors">
+                    {% for error in form.non_field_errors %}
+                        <span class="aw-field-error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <div class="aw-form-grid">
                 {% for field in form %}
                     <div class="aw-field-group {% if field.name == 'first_name' or field.name == 'last_name' %}aw-col-half{% endif %}">
                         <label for="{{ field.id_for_label }}" class="aw-label">
                             {{ field.label }}
                         </label>
-                        
                         {{ field }}
-
                         {% if field.help_text %}
                             <small class="aw-help-text">{{ field.help_text|safe }}</small>
                         {% endif %}
-
                         {% for error in field.errors %}
                             <span class="aw-field-error">{{ error }}</span>
                         {% endfor %}

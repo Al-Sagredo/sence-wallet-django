@@ -15,7 +15,11 @@
         </div>
         <div class="aw-profile-aside">
             <span class="aw-badge aw-badge-primary">Cuenta N° {{ cuenta.numero_cuenta }}</span>
-            
+            <div class="aw-tags">
+                {% for tag in cuenta.etiquetas.all %}
+                    <span class="aw-badge">{{ tag.nombre }}</span>
+                {% endfor %}
+            </div>
         </div>
     </header>
 
