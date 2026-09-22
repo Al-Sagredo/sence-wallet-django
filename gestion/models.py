@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from decimal import Decimal
+import random
 
 
 # Relación Muchos a Muchos 
@@ -37,6 +38,14 @@ class Cuenta(models.Model):
     saldo = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     etiquetas = models.ManyToManyField(Etiqueta, blank=True, related_name='cuentas')
+
+    @classmethod
+    def generar_numero_cuenta_unico(cls):
+        """Genera un número de cuenta aleatorio garantizando que no esté repetido."""
+        while True:
+            numero = str(random.randint(100000, 999999))
+            if not cls.objects.filter(numero_cuenta=numero).exists():
+                return numero
     
     def __str__(self):
         return f'Cuenta: {self.numero_cuenta} - {self.cliente.nombre}'
