@@ -19,6 +19,7 @@ class ClienteListView(LoginRequiredMixin,ListView):
     model = Cliente
     template_name = 'gestion/cliente_list.html'
     context_object_name = 'clientes'
+    # Evita el problema de consultas N+1 al precargar user y cuenta
     queryset = Cliente.objects.select_related('user', 'cuenta').all()
     
 class ClienteCreateView(LoginRequiredMixin,CreateView):
@@ -57,7 +58,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
         if cuenta:
             context['cliente'] = cliente
             context['cuenta'] = cuenta
-            context['transacciones'] = cuenta.transacciones.order_by('-fecha')[:8] 
+            context['transacciones'] = cuenta.transacciones.all()[:8] 
 
             # Suma de depósitos
             ingresos = cuenta.transacciones.filter(tipo='DEPOSITO').aggregate(total=Sum('monto'))
@@ -71,26 +72,6 @@ class HomeView(LoginRequiredMixin, TemplateView):
         context['total_egresos'] = total_egresos
         return context
 
-@login_required  # <-- Garantiza que solo ingresen con login previo
-def dashboard_view(request):
-    cliente = request.user.cliente
-    cuenta = cliente.cuenta
-    
-    # 1. Consulta para el listado reciente
-    transacciones_recientes = cuenta.transacciones.order_by('-fecha')[:8]
-    
-    # 2. Consultas avanzadas / agregaciones (Cumple con Lección 4: Consultas Personalizadas)
-    total_ingresos = cuenta.transacciones.filter(tipo='DEPOSITO').aggregate(total=Sum('monto'))['total'] or 0
-    total_egresos = cuenta.transacciones.filter(tipo__in=['RETIRO', 'TRANSFERENCIA']).aggregate(total=Sum('monto'))['total'] or 0
-
-    context = {
-        'cliente': cliente,
-        'cuenta': cuenta,
-        'transacciones': transacciones_recientes,
-        'total_ingresos': total_ingresos,
-        'total_egresos': total_egresos,
-    }
-    return render(request, 'gestion/dashboard.html', context)
 
 def registro_usuario(request): 
     if request.user.is_authenticated:
@@ -107,37 +88,21 @@ def registro_usuario(request):
         form = RegistroClienteForm()
     return render(request, 'registration/registro.html', {'form': form}) # sigue esta vía si el form.is_valid es false o si el metodo es GET
 
-@login_required
-def mi_cuenta_view(request):
-    # Accedes a Cliente y Cuenta directamente desde el request.user:
-    try:
-        cliente = request.user.cliente
-        cuenta = cliente.cuenta
-        # Trae las transacciones ordenadas por las más recientes 
-        transacciones = cuenta.transacciones.order_by('-fecha')[:10]
-    except ObjectDoesNotExist:
-        return render(request, 'dashboard.html', {'error_perfil': 'Tu usuario aún no tiene un perfil de cliente o cuenta bancaria asignada.'})
-    
-    return render(request, 'dashboard.html', {
-        'cuenta': cuenta,
-        'transacciones': transacciones
-    })
-
-
-
-
 
 # ==========================================
 # CRUD TRANSACCIONES 
 # ==========================================
 class TransaccionListView(LoginRequiredMixin, ListView):
     model = Transaccion
-    template_name = 'gestion/transaccion_list.html'
+    template_name = 'gestion/transaction_list.html'
     context_object_name = 'transacciones'
 
     def get_queryset(self):
-        # Solo muestra las transacciones de la cuenta del usuario
-        return self.request.user.cliente.cuenta.transacciones.order_by('-fecha')
+        cliente = getattr(self.request.user, 'cliente', None)
+        cuenta = getattr(cliente, 'cuenta', None) if cliente else None
+        if cuenta:
+            return cuenta.transacciones.all()
+        return Transaccion.objects.none()
 
 class TransaccionCreateView(LoginRequiredMixin, CreateView):
     model = Transaccion
@@ -147,24 +112,27 @@ class TransaccionCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         cliente = getattr(self.request.user, 'cliente', None)
-        
-        # Verificamos si existe el cliente y su cuenta
-        if not cliente or not hasattr(cliente, 'cuenta'):
+        cuenta = getattr(cliente, 'cuenta', None) if cliente else None
+
+        if not cuenta:
             form.add_error(None, 'No tienes una cuenta bancaria asignada para realizar transacciones.')
             return self.form_invalid(form)
-
-        cuenta = cliente.cuenta
-        form.instance.cuenta = cuenta
         
         with transaction.atomic():
+            # Bloqueo a nivel de fila para garantizar integridad concurrente
+            cuenta_actualizada = Cuenta.objects.select_for_update().get(pk=cuenta.pk)
+            monto = form.cleaned_data['monto']
+            tipo = form.cleaned_data['tipo']
+
             # Actualizamos el saldo según el tipo de operación
-            if form.instance.tipo == 'DEPOSITO':
-                cuenta.saldo += form.instance.monto
-            elif form.instance.tipo in ['RETIRO', 'TRANSFERENCIA']:
-                if cuenta.saldo < form.instance.monto:
+            if tipo == 'DEPOSITO':
+                cuenta_actualizada.saldo += monto
+            elif tipo in ['RETIRO', 'TRANSFERENCIA']:
+                if cuenta_actualizada.saldo < monto:
                     form.add_error('monto', 'Saldo insuficiente para realizar esta operación.')
                     return self.form_invalid(form)
-                cuenta.saldo -= form.instance.monto
-            cuenta.save()
+                cuenta_actualizada.saldo -= monto
+            cuenta_actualizada.save()
+            form.instance.cuenta = cuenta_actualizada
             return super().form_valid(form)
 

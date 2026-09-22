@@ -1,0 +1,87 @@
+{% extends 'gestion/base.html' %}
+{% load static %}
+
+{% block title %}Historial de Transacciones | Sence Wallet{% endblock %}
+
+{% block extra_css %}
+<!-- Enlace opcional si tu base.html no incluye el CSS global automáticamente -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="aw-dashboard">
+    <!-- Header del Historial -->
+    <div class="aw-section-header">
+        <div>
+            <h1 class="aw-page-title">Historial de Transacciones</h1>
+            <p class="aw-section-subtitle">Registro completo de movimientos de la cuenta</p>
+        </div>
+        <div>
+            <a href="{% url 'transaccion_create' %}" class="aw-btn-primary">
+                <i class="bi bi-arrow-left-right"></i> Nueva Transacción
+            </a>
+        </div>
+    </div>
+
+    <!-- Tabla de movimientos dentro de la tarjeta general -->
+    <div class="aw-card aw-table-card">
+        <div class="table-responsive">
+            <table class="aw-table">
+                <thead>
+                    <tr>
+                        <th>FECHA</th>
+                        <th>OPERACIÓN</th>
+                        <th>DETALLE</th>
+                        <th>CUENTA</th>
+                        <th class="text-right">MONTO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in transacciones %}
+                        <tr>
+                            <td class="aw-cell-date">
+                                {{ t.fecha|date:"d M, Y - H:i" }}
+                            </td>
+                            <td>
+                                {% if t.tipo == 'DEPOSITO' %}
+                                    <span class="aw-badge aw-badge-success">
+                                        <i class="bi bi-arrow-down-left"></i> Depósito
+                                    </span>
+                                {% elif t.tipo == 'RETIRO' %}
+                                    <span class="aw-badge aw-badge-danger">
+                                        <i class="bi bi-arrow-up-right"></i> Retiro
+                                    </span>
+                                {% else %}
+                                    <span class="aw-badge aw-badge-info">
+                                        <i class="bi bi-arrow-left-right"></i> Transferencia
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td class="aw-cell-desc">
+                                {{ t.descripcion|default:"Sin descripción" }}
+                            </td>
+                            <td class="aw-cell-account">
+                                N° {{ t.cuenta.numero_cuenta }}
+                            </td>
+                            <td class="text-right">
+                                {% if t.tipo == 'DEPOSITO' %}
+                                    <span class="aw-amount-positive">+${{ t.monto }}</span>
+                                {% else %}
+                                    <span class="aw-amount-negative">-${{ t.monto }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-5 aw-text-muted">
+                                <i class="bi bi-receipt fs-2 mb-2 d-block"></i>
+                                No hay transacciones registradas hasta el momento.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
