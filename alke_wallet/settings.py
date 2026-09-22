@@ -126,10 +126,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
+# URL pública para servir estáticos
 STATIC_URL = 'static/'
-STATICFILE_DIRS = [
-    BASE_DIR / 'static'
-]
+
+# Directorio raíz del proyecto donde colocas recursos estáticos globales
+STATICFILE_DIRS = []
+
+# Directorio de recolección (útil para producción)
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
@@ -140,5 +144,11 @@ MAILERS = {
     },
 }
 
+# Redirección tras iniciar sesión exitosamente
 LOGIN_REDIRECT_URL = 'home'
+
+# Redirección tras cerrar sesión
 LOGOUT_REDIRECT_URL = 'login'
+
+# Ruta a la que Django envía automáticamente si un usuario no autenticado intenta entrar a una vista protegida
+LOGIN_URL = 'login'
