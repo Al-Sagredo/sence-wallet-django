@@ -31,7 +31,7 @@ El sistema implementa una arquitectura orientada a modelos de datos relacionales
 1. **Clonar el repositorio**:
    ```bash
    git clone https://github.com/Al-Sagredo/sence-wallet-django.git
-   cd sence-wallet
+   cd sence-wallet-django
 
 
 
