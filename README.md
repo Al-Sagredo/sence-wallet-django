@@ -31,23 +31,23 @@ El sistema implementa una arquitectura orientada a modelos de datos relacionales
 1. **Clonar el repositorio**:
    ```bash
    git clone https://github.com/Al-Sagredo/sence-wallet-django.git
-   cd sence-wallet-django
+   cd sence-wallet
 
 
 
 2. **Crear y activar el entorno virtual**:
-     * En Windows:
-       ```bash
-       python -m venv venv
-       venv\Scripts\activate
+  * En Windows:
+    ```bash
+    python -m venv venv
+    venv\Scripts\activate
 
 
 
 
-   * En Linux/macOS:
-       ```bash
-       python3 -m venv venv
-       source venv/bin/activate
+* En Linux/macOS:
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
 
 
 
@@ -58,6 +58,17 @@ El sistema implementa una arquitectura orientada a modelos de datos relacionales
     ```bash
     pip install django
     pip install -r requirements.txt
+
+4. **Configurar la base de datos MySQL**:
+
+    * Iniciar el servicio local de MySQL .
+    * Crear la base de datos desde su terminal o gestor visual :
+    ```bash
+    CREATE DATABASE sence_wallet_db;
+
+    * Crear el archivo de variables de entorno a partir de la plantilla:
+        * En Windows (PowerShell):
+        
     
 4. **Aplicar migraciones a la base de datos**:
     ```bash
