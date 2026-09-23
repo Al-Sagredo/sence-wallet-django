@@ -63,11 +63,22 @@ El sistema implementa una arquitectura orientada a modelos de datos relacionales
 
     * Iniciar el servicio local de MySQL .
     * Crear la base de datos desde su terminal o gestor visual :
-    ```bash
-    CREATE DATABASE sence_wallet_db;
+      
+       ```bash
+       CREATE DATABASE sence_wallet_db
+       ```
 
     * Crear el archivo de variables de entorno a partir de la plantilla:
         * En Windows (PowerShell):
+          ```bash
+          Copy-Item .env.example .env
+         * En Windows (CMD):
+           ```bash
+           copy .env.example .env
+         * En Linux/macOS:
+           ```bash
+           cp .env.example .env
+         (Si su usuario root de MySQL posee contraseña, indíquela dentro del archivo .env recién creado).
         
     
 4. **Aplicar migraciones a la base de datos**:
