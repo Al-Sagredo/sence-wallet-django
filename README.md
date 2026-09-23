@@ -31,23 +31,23 @@ El sistema implementa una arquitectura orientada a modelos de datos relacionales
 1. **Clonar el repositorio**:
    ```bash
    git clone https://github.com/Al-Sagredo/sence-wallet-django.git
-   cd sence-wallet
+   cd sence-wallet-django
 
 
 
 2. **Crear y activar el entorno virtual**:
-  * En Windows:
-    ```bash
-    python -m venv venv
-    venv\Scripts\activate
+     * En Windows:
+       ```bash
+       python -m venv venv
+       venv\Scripts\activate
 
 
 
 
-* En Linux/macOS:
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate
+   * En Linux/macOS:
+       ```bash
+       python3 -m venv venv
+       source venv/bin/activate
 
 
 
