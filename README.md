@@ -83,7 +83,6 @@ El sistema implementa una arquitectura orientada a modelos de datos relacionales
     
 4. **Aplicar migraciones a la base de datos**:
     ```bash
-    python manage.py makemigrations
     python manage.py migrate
 
 
